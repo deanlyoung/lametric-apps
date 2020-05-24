@@ -9,8 +9,8 @@ requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 # options: local || remote
 environment = 'local'
-# options: c || f
-temp_unit = 'c'
+# options: C || F
+temp_unit = 'C'
 
 # replace "123.456.78.9" with your Awair device IP address
 awair_url = 'http://123.456.78.9/air-data/latest'
@@ -51,43 +51,43 @@ def get_from_awair_and_push_to_lametric():
 	def build_lametric_frames(sensors):
 		for sensor in sensors.keys():
 			if sensor == 'score':
-				score = sensors['score']
+				score = sensors[sensor]
 				frame_item = {"text": str(score),"icon":"37314","index":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'temp':
 				deg = u'\xb0'
-				temp = sensors['temp']
-				if(temp_unit == 'f'):
-					temp = (temp * (9/5)) + 32
-				frame_item = {"text": str(round(temp, 2)) + deg + "C","icon":"a2422","index":2}
+				temp = sensors[sensor]
+				if(temp_unit == 'F'):
+					temp = (temp * 9 / 5) + 32
+				frame_item = {"text": str(round(temp, 2)) + deg + temp_unit,"icon":"a2422","index":2}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'humid':
-				humid = sensors['humid']
+				humid = sensors[sensor]
 				frame_item = {"text": str(humid) + "% RH","icon":"a2423","index":3}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'co2':
-				co2 = sensors['co2']
+				co2 = sensors[sensor]
 				frame_item = {"text": str(co2) + " ppm","icon":"a2440","index":4}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'voc':
-				voc = sensors['voc']
+				voc = sensors[sensor]
 				frame_item = {"text": str(voc) + " ppb","icon":"a37364","index":5}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'pm25':
-				pm25 = sensors['pm25']
+				pm25 = sensors[sensor]
 				frame_item = {"text": str(pm25) + " ug/m3","icon":"a8522","index":6}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'lux':
-				lux = sensors['lux']
+				lux = sensors[sensor]
 				frame_item = {"text": str(lux) + " lux","icon":"a1338","index":7}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'spl_a':
-				spl_a = sensors['spl_a']
+				spl_a = sensors[sensor]
 				frame_item = {"text": str(spl_a) + " dba","icon":"a5888","index":8}
 				lametric_frames_list.append(frame_item)
 			else:
 				erroneous = sensor
-				# print(erroneous)
+				print("[error]: \"" + erroneous + "\": \"" + sensors[sensor] + "\"")
 
 	def push_to_lametric():
 		lametric_frames_dict['frames'] = sorted(lametric_frames_list, key = lambda i: i['index'])
