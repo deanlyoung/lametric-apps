@@ -56,10 +56,12 @@ def get_from_awair_and_push_to_lametric():
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'temp':
 				deg = u'\xb0'
+				icon = "a2422"
 				temp = sensors[sensor]
 				if(temp_unit == 'F'):
 					temp = (temp * 9 / 5) + 32
-				frame_item = {"text": str(round(temp, 2)) + deg + temp_unit,"icon":"a2422","index":2}
+					icon = "a37978"
+				frame_item = {"text": str(round(temp, 2)) + deg + temp_unit,"icon": icon,"index":2}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'humid':
 				humid = sensors[sensor]
