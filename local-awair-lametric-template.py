@@ -9,8 +9,8 @@ requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 # options: local || remote
 environment = 'local'
-# options: C || F
-temp_unit = 'C'
+# options: c || f
+temp_unit = 'c'
 
 # replace "123.456.78.9" with your Awair device IP address
 awair_url = 'http://123.456.78.9/air-data/latest'
@@ -26,7 +26,7 @@ lametric_app_id = 'com.lametric.941c51dff3135bd87aa72db9d855dd50/'
 # latest version at the time of publishing
 lametric_app_version = '2'
 
-first_frame = json.loads('{"text":"AWAIR","icon":"37314","index":0}')
+first_frame = json.loads('{"text":"AWAIR","icon":"37314","index":0,"duration":1}')
 lametric_frames_list = []
 lametric_frames_list.append(first_frame)
 lametric_frames_dict = {}
@@ -58,34 +58,34 @@ def get_from_awair_and_push_to_lametric():
 				deg = u'\xb0'
 				icon = "a2422"
 				temp = sensors[sensor]
-				if(temp_unit == 'F'):
+				if(temp_unit == 'f'):
 					temp = (temp * 9 / 5) + 32
 					icon = "a37978"
-				frame_item = {"text": str(round(temp, 2)) + deg + temp_unit,"icon": icon,"index":2}
+				frame_item = {"text": str(round(temp, 2)) + deg + temp_unit,"icon": icon,"index":2,"duration":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'humid':
 				humid = sensors[sensor]
-				frame_item = {"text": str(humid) + "% RH","icon":"a2423","index":3}
+				frame_item = {"text": str(humid) + "% RH","icon":"a2423","index":3,"duration":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'co2':
 				co2 = sensors[sensor]
-				frame_item = {"text": str(co2) + " ppm","icon":"a2440","index":4}
+				frame_item = {"text": str(co2) + " ppm","icon":"a2440","index":4,"duration":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'voc':
 				voc = sensors[sensor]
-				frame_item = {"text": str(voc) + " ppb","icon":"a37364","index":5}
+				frame_item = {"text": str(voc) + " ppb","icon":"a37364","index":5,"duration":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'pm25':
 				pm25 = sensors[sensor]
-				frame_item = {"text": str(pm25) + " ug/m3","icon":"a8522","index":6}
+				frame_item = {"text": str(pm25) + " ug/m3","icon":"a8522","index":6,"duration":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'lux':
 				lux = sensors[sensor]
-				frame_item = {"text": str(lux) + " lux","icon":"a1338","index":7}
+				frame_item = {"text": str(lux) + " lux","icon":"a1338","index":7,"duration":1}
 				lametric_frames_list.append(frame_item)
 			elif sensor == 'spl_a':
 				spl_a = sensors[sensor]
-				frame_item = {"text": str(spl_a) + " dba","icon":"a5888","index":8}
+				frame_item = {"text": str(spl_a) + " dba","icon":"a5888","index":8,"duration":1}
 				lametric_frames_list.append(frame_item)
 			else:
 				erroneous = sensor
